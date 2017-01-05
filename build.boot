@@ -10,9 +10,11 @@
                   [juxt/iota "0.2.3" :scope "test"]]
   :resource-paths #{"src"})
 
+(ns-unmap *ns* 'test)
 
 (require
   '[crisptrutski.boot-cljs-test :refer [test-cljs]])
+
 
 (task-options!
  pom {:project 'benefactor
@@ -41,7 +43,7 @@
     (speak)
     (test-cljs)))
 
-(deftask run-tests
+(deftask test
   []
   (comp
     (test-cljs :exit? true)
