@@ -1,4 +1,5 @@
 # Benefactor
+[![CircleCI](https://circleci.com/gh/mynomoto/benefactor.svg?style=shield&circle-token=7541bc4c611acaf0b4d90a1cb85fb89544f1c6e1)](https://circleci.com/gh/mynomoto/benefactor)
 
 You know that code that you have to keep writing to deal with cookies, local
 storage, json serializing, keycodes, routing and other small things? I don't
