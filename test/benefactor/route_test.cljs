@@ -5,11 +5,13 @@
     [juxt.iota :refer [given]]))
 
 (def routes
-  (benefactor.route/create
-    [[:index [[]]]
-     [:profile [["profile"]]]
-     [:profile-edit [["profile" "edit"]]]
-     [:exploration [["exploration" :url-id]]]]))
+  ["" [["" :index]
+       ["/"
+        [["" :index]
+         ["profile" :profile]
+         [["profile/" "edit"] :profile-edit]
+         [["exploration/" :url-id] :exploration]
+         [true :not-found]]]]])
 
 (deftest setup-and-change-with-reset
   (let [current-path (atom nil)
@@ -21,7 +23,7 @@
                    (reset! current-matched-route matched-route)))
         _ (benefactor.route/sync-from-atom router current-path)]
     (is (= "" @current-path))
-    (is (= :index (:domkm.silk/name @current-matched-route)))
+    (is (= :index (:handler @current-matched-route)))
 
     (reset! current-path "/profile")
     (is (= "#!/profile" (-> js/window .-location .-hash)))
@@ -31,7 +33,7 @@
       (js/setTimeout
         #(do
            (is (= "/profile" @current-path))
-           (is (= :profile (:domkm.silk/name @current-matched-route)))
+           (is (= :profile (:handler @current-matched-route)))
            (done))
         0))))
 
@@ -52,6 +54,31 @@
       (js/setTimeout
         #(do
            (is (= "/profile/edit" @current-path))
-           (is (= :profile-edit (:domkm.silk/name @current-matched-route)))
+           (is (= :profile-edit (:handler @current-matched-route)))
            (done))
         0))))
+
+(deftest hash->path
+  (is (= "/zzz" (benefactor.route/hash->path "#!/zzz")))
+  (is (= "/asd/aaa" (benefactor.route/hash->path "#!/asd/aaa"))))
+
+(deftest token->path
+  (is (= "/zzz" (benefactor.route/token->path "!/zzz")))
+  (is (= "/asd/aaa" (benefactor.route/token->path "!/asd/aaa"))))
+
+(deftest path->hash
+  (is (= "#!/zzz" (benefactor.route/path->hash "/zzz")))
+  (is (= "#!/asd/aaa" (benefactor.route/path->hash "/asd/aaa"))))
+
+(deftest path->token
+  (is (= "!/zzz" (benefactor.route/path->token "/zzz")))
+  (is (= "!/asd/aaa" (benefactor.route/path->token "/asd/aaa"))))
+
+(deftest path-for
+  (is (= "" (benefactor.route/path-for routes :index)))
+  (is (= "/profile" (benefactor.route/path-for routes :profile)))
+  (is (= "/profile?aaa=bbb" (benefactor.route/path-for routes :profile {:query-params {:aaa "bbb"}})))
+  (is (= "/exploration/amazing?aaa=bbb" (benefactor.route/path-for routes :exploration {:url-id "amazing" :query-params {:aaa "bbb"}}))))
+
+(deftest route->path
+  (is (= "" (benefactor.route/route->path routes :index))))

@@ -3,7 +3,7 @@
                   [org.clojure/clojurescript "1.9.293"]
 
                   [com.cognitect/transit-cljs "0.8.239"]
-                  [com.domkm/silk "0.1.2"]
+                  [bidi "2.0.16"]
 
                   [adzerk/boot-cljs "1.7.228-2" :scope "test"]
                   [crisptrutski/boot-cljs-test "0.3.0" :scope "test"]
