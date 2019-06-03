@@ -1,9 +1,9 @@
 (set-env!
-  :dependencies '[[org.clojure/clojure "1.9.0-alpha14"]
-                  [org.clojure/clojurescript "1.9.293"]
+  :dependencies '[[org.clojure/clojure "1.10.0"]
+                  [org.clojure/clojurescript "1.10.520"]
 
-                  [com.cognitect/transit-cljs "0.8.239"]
-                  [bidi "2.0.16"]
+                  [com.cognitect/transit-cljs "0.8.256"]
+                  [bidi "2.1.6"]
 
                   [adzerk/boot-cljs "1.7.228-2" :scope "test"]
                   [crisptrutski/boot-cljs-test "0.3.0" :scope "test"]
