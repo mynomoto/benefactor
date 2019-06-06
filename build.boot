@@ -18,7 +18,7 @@
 
 (task-options!
  pom {:project 'benefactor
-      :version "0.0.1-SNAPSHOT"
+      :version "0.1.1"
       :description "A library of clojurescript helpers"
       :url "https://mynomoto.github.io/benefactor"
       :scm {:url "https://github.com/mynomoto/benefactor"}
