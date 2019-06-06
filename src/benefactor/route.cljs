@@ -69,7 +69,7 @@
    (route->path bidi-routes route-name nil))
   ([bidi-routes route-name params]
    (route->path bidi-routes route-name params #(do
-                                                 (console.error ::href-failed %)
+                                                 (js/console.error ::href-failed %)
                                                  (path->hash "/"))))
   ([bidi-routes route-name params error-callback]
    (try
@@ -148,7 +148,7 @@
   [path parsed-route], else f-error is called on the current path, returns the
   router."
   ([bidi-routes f]
-   (setup-router bidi-routes f (fn [path] (console.error ::route-not-found path))))
+   (setup-router bidi-routes f (fn [path] (js/console.error ::route-not-found path))))
   ([bidi-routes f f-error]
    (hash-router
      (fn [event]
